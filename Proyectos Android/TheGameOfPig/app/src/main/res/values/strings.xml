@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">The Game Of Pig</string>
+    <string name="roll_button">ROLL</string>
+    <string name="hold_button">HOLD</string>
+    <string name="first_player_label">PLAYER 1</string>
+    <string name="second_player_label">PLAYER 2</string>
+    <string name="start_game_value">0</string>
+    <string name="restart_button">Restart</string>
+    <string name="empty_button_text"> </string>
+</resources>
