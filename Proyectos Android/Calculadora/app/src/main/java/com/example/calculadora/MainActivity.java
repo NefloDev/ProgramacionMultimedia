@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void calc(View view){
+        //Calculo realizado a partir de importar el motor "Rhino" que tiene implementado JavaScript, éste permite evaluar código en forma de cadena de texto, en este caso es una
+        //formula asi que lo que devuelve es un número como resultado
         String equation = calcText.getText().toString().replaceAll("", "");
         double result;
         ScriptEngineManager mgr = new ScriptEngineManager();
