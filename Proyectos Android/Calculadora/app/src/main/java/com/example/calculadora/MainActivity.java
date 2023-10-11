@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -35,20 +36,55 @@ public class MainActivity extends AppCompatActivity {
         );
     }
 
-    public void calc(View view){
-        //Calculo realizado a partir de importar el motor "Rhino" que tiene implementado JavaScript, éste permite evaluar código en forma de cadena de texto, en este caso es una
-        //formula asi que lo que devuelve es un número como resultado
-        String equation = calcText.getText().toString().replaceAll("", "");
-        double result;
-        ScriptEngineManager mgr = new ScriptEngineManager();
-        ScriptEngine engine = mgr.getEngineByName("rhino");
-        if(equation.contains("+") || equation.contains("-")){
-            try {
-                result = (double)engine.eval(equation);
-                calcText.setText(String.format("%.0f", result));
-            } catch (ScriptException e) {
-                System.err.println("Error getting result");
+//    public void calc(View view){
+//        //Calculo realizado a partir de importar el motor "Rhino", éste permite evaluar código en forma de cadena de texto, que,en este caso, es una
+//        //formula asi que lo que devuelve es un resultado numérico
+//        String equation = calcText.getText().toString();
+//        double result;
+//        ScriptEngineManager mgr = new ScriptEngineManager();
+//        ScriptEngine engine = mgr.getEngineByName("rhino");
+//        if(equation.contains("+") || equation.contains("-")){
+//            try {
+//                result = (double)engine.eval(equation);
+//                calcText.setText(String.format("%.0f", result));
+//            } catch (ScriptException e) {
+//                System.err.println("Error getting result");
+//            }
+//        }
+//    }
+
+    public void calculate(View view){
+        String calc = calcText.getText().toString();
+        int result = 0;
+
+        StringBuilder number;
+        ArrayList<Integer> nums = new ArrayList<>();
+
+        for (int i = 0; i < calc.length(); i++) {
+            char token = calc.charAt(i);
+            if (Character.isDigit(token)){
+                number = new StringBuilder();
+                while(i<calc.length() && Character.isDigit(calc.charAt(i))){
+                    if(Character.isDigit(calc.charAt(i))){
+                        if(i > 0){
+                            if(calc.charAt(i-1) == '-'){
+                                number.append("-");
+                            }
+                        }
+                        token = calc.charAt(i);
+                        number.append(token);
+                        i++;
+                    }
+                }
+                nums.add(Integer.parseInt(number.toString()));
             }
+        }
+        if (nums.size() > 1 && (calc.contains("+") || calc.contains("-"))) {
+            for (int num: nums) {
+                result += num;
+            }
+
+            calcText.setText(String.valueOf(result));
         }
     }
 
