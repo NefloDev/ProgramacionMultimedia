@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="primaryTxt"/>
+    <attr name="secondaryTxt"/>
+    <attr name="bg"/>
+    <attr name="bg2"/>
+    <attr name="operatorDark"/>
+    <attr name="operatorLight"/>
+    <attr name="buttonStart"/>
+    <attr name="buttonEnd"/>
+    <attr name="highlightButton"/>
+</resources>
