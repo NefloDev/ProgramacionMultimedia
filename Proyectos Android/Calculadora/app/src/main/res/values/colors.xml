@@ -12,9 +12,9 @@
 
     <color name="textDark">#FF333333</color>
     <color name="textLight">#FFCCCCCC</color>
-    <color name="operatorDark1">#42089F</color>
-    <color name="operatorDark2">#7D4EC8</color>
-    <color name="operatorLight1">#7B31EF</color>
+    <color name="operatorDark1">#08639F</color>
+    <color name="operatorDark2">#4E93C8</color>
+    <color name="operatorLight1">#31A3EF</color>
     <color name="operatorLight2">#DDC7FF</color>
     <color name="highlightButtonLight">#99FFFFFF</color>
     <color name="highlightButtonDark">#99555555</color>
