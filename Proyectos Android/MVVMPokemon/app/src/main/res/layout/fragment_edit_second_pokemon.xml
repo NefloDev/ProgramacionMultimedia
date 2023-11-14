@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/editPokemonFragmentLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/yellow"
+    tools:context=".EditFirstPokemonFragment">
+
+    <ImageView
+        android:id="@+id/backToFirstFromSecond"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginEnd="16dp"
+        android:padding="10dp"
+        android:src="@drawable/backicon"
+        app:layout_constraintBottom_toBottomOf="@+id/pokemon2Title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/pokemon2Title"
+        app:tint="@color/blue" />
+
+    <TextView
+        android:id="@+id/pokemon2Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/pokemon2"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/nameHint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:text="@string/nameText"
+        android:textAllCaps="true"
+        android:textColor="@color/blue"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/pokemon2Title"
+        app:layout_constraintTop_toBottomOf="@+id/pokemon2Title" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/nameInput2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/nameText"
+        android:textColorHint="@color/lightBlue"
+        app:boxStrokeColor="@color/text_input_stroke_color_blue"
+        app:hintTextColor="@color/lightBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/nameHint2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/nameHint2"
+        app:layout_constraintTop_toTopOf="@+id/nameHint2"
+        app:layout_constraintVertical_bias="0.482">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/nameIn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/lightBlue" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/hpHint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/hpText"
+        android:textColor="@color/blue"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/nameHint2"
+        app:layout_constraintTop_toBottomOf="@+id/nameInput2" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/hpInput2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/hpHint"
+        android:textColorHint="@color/lightBlue"
+        app:boxStrokeColor="@color/text_input_stroke_color_blue"
+        app:hintTextColor="@color/lightBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/hpHint2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/hpHint2"
+        app:layout_constraintTop_toTopOf="@+id/hpHint2"
+        app:layout_constraintVertical_bias="0.517">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/hpIn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/lightBlue" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/atkHint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/atkText"
+        android:textColor="@color/blue"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/hpHint2"
+        app:layout_constraintTop_toBottomOf="@+id/hpInput2" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/atkInput2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/atkHint"
+        android:textColorHint="@color/lightBlue"
+        app:boxStrokeColor="@color/text_input_stroke_color_blue"
+        app:hintTextColor="@color/lightBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/atkHint2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/atkHint2"
+        app:layout_constraintTop_toTopOf="@+id/atkHint2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/atkIn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/lightBlue" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/defHint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/defText"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/atkHint2"
+        app:layout_constraintTop_toBottomOf="@+id/atkInput2" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/defInput2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/defHint"
+        android:textColorHint="@color/lightBlue"
+        app:boxStrokeColor="@color/text_input_stroke_color_blue"
+        app:hintTextColor="@color/lightBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/defHint2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/defHint2"
+        app:layout_constraintTop_toTopOf="@+id/defHint2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/defIn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/lightBlue" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/spAtkHint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/spAtkText"
+        android:textColor="@color/blue"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/defHint2"
+        app:layout_constraintTop_toBottomOf="@+id/defInput2" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spAtkInput2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/spAtkHint"
+        android:textColorHint="@color/lightBlue"
+        app:boxStrokeColor="@color/text_input_stroke_color_blue"
+        app:hintTextColor="@color/lightBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/spAtkHint2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spAtkHint2"
+        app:layout_constraintTop_toTopOf="@+id/spAtkHint2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/spAtkIn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/lightBlue" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/spDefHint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/spDefText"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/spAtkHint2"
+        app:layout_constraintTop_toBottomOf="@+id/spAtkInput2" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/spDefInput2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:hint="@string/spDefHint"
+        android:textColorHint="@color/lightBlue"
+        app:boxStrokeColor="@color/text_input_stroke_color_blue"
+        app:hintTextColor="@color/lightBlue"
+        app:layout_constraintBottom_toBottomOf="@+id/spDefHint2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/spDefHint2"
+        app:layout_constraintTop_toTopOf="@+id/spDefHint2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/spDefIn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="number"
+            android:textColor="@color/lightBlue" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/finalCheckButton"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@color/blue"
+        android:contentDescription="finalCheckButton"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
+        android:visibility="visible"
+        app:cornerRadius="100dp"
+        app:icon="@drawable/pokeball"
+        app:iconGravity="textEnd"
+        app:iconPadding="0dp"
+        app:iconSize="60dp"
+        app:iconTint="@color/yellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="44dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

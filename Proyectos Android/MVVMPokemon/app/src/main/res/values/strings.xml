@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">MVVMPokemon</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="pokemon1">POKEMON 1</string>
+    <string name="pokemon2">POKEMON 2</string>
+    <string name="nameText">Name</string>
+    <string name="hpText">HP</string>
+    <string name="atkText">ATK</string>
+    <string name="defText">DEF</string>
+    <string name="spAtkText">SPATK</string>
+    <string name="spDefText">SPDEF</string>
+    <string name="hpHint">Health Points</string>
+    <string name="atkHint">Attack</string>
+    <string name="defHint">Defense</string>
+    <string name="spAtkHint">Special Attack</string>
+    <string name="spDefHint">Special Defense</string>
+</resources>

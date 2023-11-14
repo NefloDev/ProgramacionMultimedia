@@ -34,7 +34,6 @@ public class EntrenadorFragment extends Fragment {
         entrenadorViewModel.obtenerEjercicio().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer ejercicio) {
-                Glide.with(EntrenadorFragment.this).clear(binding.ejercicio);
                 Glide.with(EntrenadorFragment.this).load(ejercicio).into(binding.ejercicio);
             }
         });

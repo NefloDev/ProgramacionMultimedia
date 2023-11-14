@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainMenu">
+
+    <fragment
+        android:id="@+id/mainMenu"
+        android:name="com.example.mvvmpokemon.MainMenu"
+        android:label="fragment_main_menu"
+        tools:layout="@layout/fragment_main_menu" >
+        <action
+            android:id="@+id/action_mainMenu_to_editPokemonFragment"
+            app:destination="@id/editPokemonFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_mainMenu_to_pokemonBattleFragment"
+            app:destination="@id/pokemonBattleFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/editPokemonFragment"
+        android:name="com.example.mvvmpokemon.EditFirstPokemonFragment"
+        android:label="fragment_edit_pokemon"
+        tools:layout="@layout/fragment_edit_first_pokemon" >
+        <action
+            android:id="@+id/action_editPokemonFragment_to_editSecondPokemonFragment"
+            app:destination="@id/editSecondPokemonFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_editPokemonFragment_to_mainMenu"
+            app:destination="@id/mainMenu"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemonBattleFragment"
+        android:name="com.example.mvvmpokemon.PokemonBattleFragment"
+        android:label="fragment_pokemon_battle"
+        tools:layout="@layout/fragment_pokemon_battle" >
+        <action
+            android:id="@+id/action_pokemonBattleFragment_to_mainMenu"
+            app:destination="@id/mainMenu"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_pokemonBattleFragment_to_editPokemonFragment"
+            app:destination="@id/editPokemonFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
+    </fragment>
+    <fragment
+        android:id="@+id/editSecondPokemonFragment"
+        android:name="com.example.mvvmpokemon.EditSecondPokemonFragment"
+        android:label="EditSecondPokemonFragment" >
+        <action
+            android:id="@+id/action_editSecondPokemonFragment_to_editPokemonFragment"
+            app:destination="@id/editPokemonFragment"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left"/>
+        <action
+            android:id="@+id/action_editSecondPokemonFragment_to_mainMenu"
+            app:destination="@id/mainMenu"
+            app:enterAnim="@anim/slide_in_left"
+            app:exitAnim="@anim/slide_out_right"
+            app:popEnterAnim="@anim/slide_in_right"
+            app:popExitAnim="@anim/slide_out_left" />
+    </fragment>
+</navigation>

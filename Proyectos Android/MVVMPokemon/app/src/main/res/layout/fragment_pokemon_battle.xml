@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pokemonBattleLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".PokemonBattleFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pokemon1Layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/yellow">
+
+        <TextView
+            android:id="@+id/pokemon1Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/pokemon1"
+            android:textColor="@color/blue"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/pokemon1Hp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:text="@string/hpText"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/pokemon1Name"
+            app:layout_constraintTop_toBottomOf="@+id/pokemon1Name" />
+
+        <TextView
+            android:id="@+id/pokemon1Atk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/atkText"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/pokemon1Hp"
+            app:layout_constraintTop_toBottomOf="@+id/pokemon1Hp" />
+
+        <TextView
+            android:id="@+id/pokemon1Def"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/defText"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/pokemon1Atk"
+            app:layout_constraintTop_toBottomOf="@+id/pokemon1Atk" />
+
+        <TextView
+            android:id="@+id/pokemon1SpAtk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/spAtkText"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/pokemon1Def"
+            app:layout_constraintTop_toBottomOf="@+id/pokemon1Def" />
+
+        <TextView
+            android:id="@+id/pokemon1SpDef"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/spDefText"
+            android:textColor="@color/blue"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/pokemon1SpAtk"
+            app:layout_constraintTop_toBottomOf="@+id/pokemon1SpAtk" />
+
+        <ImageView
+            android:id="@+id/redoButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:src="@drawable/redoicon"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/blue" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/pokemon2Layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/blue">
+
+        <TextView
+            android:id="@+id/pokemon2Name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/pokemon2"
+            android:textColor="@color/yellow"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <TextView
+            android:id="@+id/pokemon2Hp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="24dp"
+            android:text="@string/hpText"
+            android:textColor="@color/yellow"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/pokemon2Name"
+            app:layout_constraintEnd_toEndOf="@+id/pokemon2Name" />
+
+        <TextView
+            android:id="@+id/pokemon2Atk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/atkText"
+            android:textColor="@color/yellow"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/pokemon2Hp"
+            app:layout_constraintEnd_toEndOf="@+id/pokemon2Hp" />
+
+        <TextView
+            android:id="@+id/pokemon2Def"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/defText"
+            android:textColor="@color/yellow"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/pokemon2Atk"
+            app:layout_constraintEnd_toEndOf="@+id/pokemon2Atk" />
+
+        <TextView
+            android:id="@+id/pokemon2SpAtk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/spAtkText"
+            android:textColor="@color/yellow"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/pokemon2Def"
+            app:layout_constraintEnd_toEndOf="@+id/pokemon2Def" />
+
+        <TextView
+            android:id="@+id/pokemon2SpDef"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="@string/spDefText"
+            android:textColor="@color/yellow"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/pokemon2SpAtk"
+            app:layout_constraintEnd_toEndOf="@+id/pokemon2SpAtk" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
