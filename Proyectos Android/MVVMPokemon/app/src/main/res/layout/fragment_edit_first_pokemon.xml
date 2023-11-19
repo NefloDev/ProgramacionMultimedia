@@ -8,6 +8,18 @@
     android:background="@color/blue"
     tools:context=".EditFirstPokemonFragment">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <ImageView
         android:id="@+id/backToMainFromFirstPok"
         android:layout_width="wrap_content"
@@ -16,7 +28,7 @@
         android:padding="10dp"
         android:src="@drawable/backicon"
         app:layout_constraintBottom_toBottomOf="@+id/pokemon1Title"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/toolbar"
         app:layout_constraintTop_toTopOf="@+id/pokemon1Title"
         app:srcCompat="@drawable/backicon"
         app:tint="@color/yellow" />
@@ -26,244 +38,259 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
         android:text="@string/pokemon1"
         android:textAlignment="center"
         android:textColor="@color/yellow"
-        android:textSize="34sp"
+        android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar"
+        app:layout_constraintStart_toStartOf="@id/toolbar"
+        app:layout_constraintTop_toTopOf="@id/toolbar" />
 
-    <TextView
-        android:id="@+id/nameHint1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="48dp"
-        android:text="@string/nameText"
-        android:textAllCaps="true"
-        android:textColor="@color/yellow"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/pokemon1Title"
-        app:layout_constraintTop_toBottomOf="@+id/pokemon1Title" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/nameInput1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="@string/nameText"
-        android:textColorHint="@color/lightYellow"
-        app:boxBackgroundMode="outline"
-        app:boxStrokeColor="@color/text_input_stroke_color_yellow"
-        app:boxStrokeWidth="1dp"
-        app:boxStrokeWidthFocused="2dp"
-        app:helperTextTextColor="@color/yellow"
-        app:layout_constraintBottom_toBottomOf="@+id/nameHint1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/nameHint1"
-        app:layout_constraintTop_toTopOf="@+id/nameHint1"
-        app:placeholderTextColor="@color/yellow"
-        app:prefixTextColor="@color/yellow"
-        app:suffixTextColor="@color/yellow">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/nameIn1"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/hpHint1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/hpText"
-        android:textColor="@color/yellow"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/nameHint1"
-        app:layout_constraintTop_toBottomOf="@+id/nameInput1" />
+            <TextView
+                android:id="@+id/nameHint1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="48dp"
+                android:text="@string/nameText"
+                android:textAllCaps="true"
+                android:textColor="@color/yellow"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/hpInput1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="@string/hpHint"
-        android:textColorHint="@color/lightYellow"
-        app:boxStrokeColor="@color/text_input_stroke_color_yellow"
-        app:counterTextColor="@color/yellow"
-        app:helperTextTextColor="@color/yellow"
-        app:layout_constraintBottom_toBottomOf="@+id/hpHint1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/hpHint1"
-        app:layout_constraintTop_toTopOf="@+id/hpHint1"
-        app:placeholderTextColor="@color/yellow"
-        app:prefixTextColor="@color/yellow"
-        app:suffixTextColor="@color/yellow">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/nameInput1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/nameText"
+                android:textColorHint="@color/lightYellow"
+                app:boxBackgroundMode="outline"
+                app:boxStrokeColor="@color/text_input_stroke_color_yellow"
+                app:boxStrokeWidth="1dp"
+                app:boxStrokeWidthFocused="2dp"
+                app:helperTextTextColor="@color/yellow"
+                app:layout_constraintBottom_toBottomOf="@+id/nameHint1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/nameHint1"
+                app:layout_constraintTop_toTopOf="@+id/nameHint1"
+                app:placeholderTextColor="@color/yellow"
+                app:prefixTextColor="@color/yellow"
+                app:suffixTextColor="@color/yellow">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/hpIn1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nameIn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:singleLine="true" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    </com.google.android.material.textfield.TextInputLayout>
+            <TextView
+                android:id="@+id/hpHint1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/hpText"
+                android:textColor="@color/yellow"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/nameHint1"
+                app:layout_constraintTop_toBottomOf="@+id/nameInput1" />
 
-    <TextView
-        android:id="@+id/atkHint1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/atkText"
-        android:textColor="@color/yellow"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/hpHint1"
-        app:layout_constraintTop_toBottomOf="@+id/hpInput1" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/hpInput1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/hpHint"
+                android:textColorHint="@color/lightYellow"
+                app:boxStrokeColor="@color/text_input_stroke_color_yellow"
+                app:counterTextColor="@color/yellow"
+                app:helperTextTextColor="@color/yellow"
+                app:layout_constraintBottom_toBottomOf="@+id/hpHint1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/hpHint1"
+                app:layout_constraintTop_toTopOf="@+id/hpHint1"
+                app:placeholderTextColor="@color/yellow"
+                app:prefixTextColor="@color/yellow"
+                app:suffixTextColor="@color/yellow">
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/atkInput1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="@string/atkHint"
-        android:textColorHint="@color/lightYellow"
-        app:boxStrokeColor="@color/text_input_stroke_color_yellow"
-        app:counterTextColor="@color/yellow"
-        app:helperTextTextColor="@color/yellow"
-        app:layout_constraintBottom_toBottomOf="@+id/atkHint1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/atkHint1"
-        app:layout_constraintTop_toTopOf="@+id/atkHint1"
-        app:placeholderTextColor="@color/yellow"
-        app:prefixTextColor="@color/yellow"
-        app:suffixTextColor="@color/yellow">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/hpIn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/atkIn1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/defHint1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/defText"
-        android:textAlignment="center"
-        android:textColor="@color/yellow"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/atkHint1"
-        app:layout_constraintTop_toBottomOf="@+id/atkInput1" />
+            <TextView
+                android:id="@+id/atkHint1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/atkText"
+                android:textColor="@color/yellow"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/hpHint1"
+                app:layout_constraintTop_toBottomOf="@+id/hpInput1" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/defInput1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="@string/defHint"
-        android:textColorHint="@color/lightYellow"
-        app:boxStrokeColor="@color/text_input_stroke_color_yellow"
-        app:counterTextColor="@color/yellow"
-        app:helperTextTextColor="@color/yellow"
-        app:layout_constraintBottom_toBottomOf="@+id/defHint1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/defHint1"
-        app:layout_constraintTop_toTopOf="@+id/defHint1"
-        app:placeholderTextColor="@color/yellow"
-        app:prefixTextColor="@color/yellow"
-        app:suffixTextColor="@color/yellow">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/atkInput1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/atkHint"
+                android:textColorHint="@color/lightYellow"
+                app:boxStrokeColor="@color/text_input_stroke_color_yellow"
+                app:counterTextColor="@color/yellow"
+                app:helperTextTextColor="@color/yellow"
+                app:layout_constraintBottom_toBottomOf="@+id/atkHint1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/atkHint1"
+                app:layout_constraintTop_toTopOf="@+id/atkHint1"
+                app:placeholderTextColor="@color/yellow"
+                app:prefixTextColor="@color/yellow"
+                app:suffixTextColor="@color/yellow">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/defIn1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/atkIn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/spAtkHint1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/spAtkText"
-        android:textColor="@color/yellow"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/defHint1"
-        app:layout_constraintTop_toBottomOf="@+id/defInput1" />
+            <TextView
+                android:id="@+id/defHint1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/defText"
+                android:textAlignment="center"
+                android:textColor="@color/yellow"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/atkHint1"
+                app:layout_constraintTop_toBottomOf="@+id/atkInput1" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/spAtkInput"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="@string/spAtkHint"
-        android:textColorHint="@color/lightYellow"
-        app:boxStrokeColor="@color/text_input_stroke_color_yellow"
-        app:counterTextColor="@color/yellow"
-        app:helperTextTextColor="@color/yellow"
-        app:layout_constraintBottom_toBottomOf="@+id/spAtkHint1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spAtkHint1"
-        app:layout_constraintTop_toTopOf="@+id/spAtkHint1"
-        app:placeholderTextColor="@color/yellow"
-        app:prefixTextColor="@color/yellow"
-        app:suffixTextColor="@color/yellow">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/defInput1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/defHint"
+                android:textColorHint="@color/lightYellow"
+                app:boxStrokeColor="@color/text_input_stroke_color_yellow"
+                app:counterTextColor="@color/yellow"
+                app:helperTextTextColor="@color/yellow"
+                app:layout_constraintBottom_toBottomOf="@+id/defHint1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/defHint1"
+                app:layout_constraintTop_toTopOf="@+id/defHint1"
+                app:placeholderTextColor="@color/yellow"
+                app:prefixTextColor="@color/yellow"
+                app:suffixTextColor="@color/yellow">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/spAtkIn1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/defIn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/spDefHint1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:text="@string/spDefText"
-        android:textAlignment="center"
-        android:textColor="@color/yellow"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/spAtkHint1"
-        app:layout_constraintTop_toBottomOf="@+id/spAtkInput" />
+            <TextView
+                android:id="@+id/spAtkHint1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:text="@string/spAtkText"
+                android:textColor="@color/yellow"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/defHint1"
+                app:layout_constraintTop_toBottomOf="@+id/defInput1" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/spDefInput1"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:hint="@string/spDefHint"
-        android:textColorHint="@color/lightYellow"
-        app:boxStrokeColor="@color/text_input_stroke_color_yellow"
-        app:layout_constraintBottom_toBottomOf="@+id/spDefHint1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/spDefHint1"
-        app:layout_constraintTop_toTopOf="@+id/spDefHint1">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/spAtkInput"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/spAtkHint"
+                android:textColorHint="@color/lightYellow"
+                app:boxStrokeColor="@color/text_input_stroke_color_yellow"
+                app:counterTextColor="@color/yellow"
+                app:helperTextTextColor="@color/yellow"
+                app:layout_constraintBottom_toBottomOf="@+id/spAtkHint1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/spAtkHint1"
+                app:layout_constraintTop_toTopOf="@+id/spAtkHint1"
+                app:placeholderTextColor="@color/yellow"
+                app:prefixTextColor="@color/yellow"
+                app:suffixTextColor="@color/yellow">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/spDefIn1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="number" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/spAtkIn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/spDefHint1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="48dp"
+                android:text="@string/spDefText"
+                android:textAlignment="center"
+                android:textColor="@color/yellow"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/spAtkHint1"
+                app:layout_constraintTop_toBottomOf="@+id/spAtkInput" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/spDefInput1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:hint="@string/spDefHint"
+                android:textColorHint="@color/lightYellow"
+                app:boxStrokeColor="@color/text_input_stroke_color_yellow"
+                app:layout_constraintBottom_toBottomOf="@+id/spDefHint1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/spDefHint1"
+                app:layout_constraintTop_toTopOf="@+id/spDefHint1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/spDefIn1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
     <Button
         android:id="@+id/checkButton"

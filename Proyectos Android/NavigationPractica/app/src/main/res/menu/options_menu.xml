@@ -15,7 +15,6 @@
         android:layout_height="wrap_content"
         app:showAsAction="never"
         android:id="@+id/options2Fragment"
-        android:icon="@drawable/bottom_item_icon"
         android:title="Options 2" />
 
     <item
@@ -23,6 +22,5 @@
         android:layout_height="wrap_content"
         app:showAsAction="never"
         android:id="@+id/options3Fragment"
-        android:icon="@drawable/bottom_item_icon"
         android:title="Options 3" />
 </menu>

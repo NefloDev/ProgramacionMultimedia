@@ -5,7 +5,7 @@
     android:id="@+id/pokemonBattleLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:orientation="horizontal"
     tools:context=".PokemonBattleFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +25,7 @@
             android:layout_marginTop="24dp"
             android:text="@string/pokemon1"
             android:textColor="@color/blue"
-            android:textSize="34sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -188,11 +188,13 @@
         <ImageView
             android:id="@+id/redoButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="24dp"
             android:src="@drawable/redoicon"
             app:layout_constraintBottom_toBottomOf="@+id/pokemon1Name"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/pokemon1Name"
             app:layout_constraintTop_toTopOf="@+id/pokemon1Name"
             app:tint="@color/blue" />
 
@@ -200,8 +202,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/middleConstraint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
         android:layout_weight="0"
         android:background="#243D3B">
 
@@ -229,7 +231,7 @@
             android:text="B"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -246,13 +248,14 @@
             android:text="A"
             android:textAlignment="center"
             android:textColor="@color/white"
-            android:textSize="20sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/winnerText"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -272,7 +275,7 @@
             android:layout_marginBottom="24dp"
             android:text="@string/pokemon2"
             android:textColor="@color/yellow"
-            android:textSize="34sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

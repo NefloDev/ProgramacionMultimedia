@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mvvmpokemon.Entities.PokemonCreate;
 import com.example.mvvmpokemon.Entities.PokemonCreateViewModel;
@@ -40,7 +41,8 @@ public class EditFirstPokemonFragment extends Fragment {
         NavController navController = Navigation.findNavController(view);
         binding.backToMainFromFirstPok.setOnClickListener(v -> navController.navigate(R.id.action_editPokemonFragment_to_mainMenu));
 
-        final PokemonCreateViewModel viewModel = new ViewModelProvider(this).get(PokemonCreateViewModel.class);
+        final PokemonCreateViewModel viewModel = PokemonCreateViewModel.getInstance(requireActivity().getApplication());
+        viewModel.initErrors();
 
         binding.checkButton.setOnClickListener(v -> {
             String integerError = "You must enter a number";
@@ -84,7 +86,7 @@ public class EditFirstPokemonFragment extends Fragment {
             }
 
             if(!error){
-                viewModel.create(name, hp, atk, def, spAtk, spDef);
+                viewModel.setPokemon1(name, hp, atk, def, spAtk, spDef);
             }
         });
 
@@ -122,8 +124,9 @@ public class EditFirstPokemonFragment extends Fragment {
         viewModel.creating.observe(getViewLifecycleOwner(), (creating) -> {
              binding.checkButton.setVisibility(creating ? View.GONE : View.VISIBLE);
              binding.progressBar2.setVisibility(creating ? View.VISIBLE : View.GONE);
-             if(!creating && viewModel.getPokemon().isInitialized()){
+             if(!creating && viewModel.getPokemon1().isInitialized()){
                  navController.navigate(R.id.action_editPokemonFragment_to_editSecondPokemonFragment);
+                 Toast.makeText(getContext(), "Created pokemon " + viewModel.getPokemon1().getValue().name, Toast.LENGTH_SHORT).show();
              }
         });
     }

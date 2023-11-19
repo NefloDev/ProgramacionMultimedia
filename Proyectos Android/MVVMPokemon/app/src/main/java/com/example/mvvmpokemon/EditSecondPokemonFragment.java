@@ -12,6 +12,7 @@ import androidx.navigation.Navigation;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.mvvmpokemon.Entities.PokemonCreate;
 import com.example.mvvmpokemon.Entities.PokemonCreateViewModel;
@@ -32,8 +33,10 @@ public class EditSecondPokemonFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         NavController navController = Navigation.findNavController(view);
         binding.backToFirstFromSecond.setOnClickListener(v -> navController.navigate(R.id.action_editSecondPokemonFragment_to_editPokemonFragment));
+        binding.backToMainFromSecond.setOnClickListener(v -> navController.navigate(R.id.action_editSecondPokemonFragment_to_mainMenu));
 
-        final PokemonCreateViewModel viewModel = new ViewModelProvider(this).get(PokemonCreateViewModel.class);
+        final PokemonCreateViewModel viewModel = PokemonCreateViewModel.getInstance(requireActivity().getApplication());
+        viewModel.initErrors();
 
         binding.finalCheckButton.setOnClickListener(v -> {
             String integerError = "You must enter a number";
@@ -77,7 +80,7 @@ public class EditSecondPokemonFragment extends Fragment {
             }
 
             if(!error){
-                viewModel.create(name, hp, atk, def, spAtk, spDef);
+                viewModel.setPokemon2(name, hp, atk, def, spAtk, spDef);
             }
         });
 
@@ -115,11 +118,10 @@ public class EditSecondPokemonFragment extends Fragment {
         viewModel.creating.observe(getViewLifecycleOwner(), (creating) -> {
             binding.finalCheckButton.setVisibility(creating ? View.GONE : View.VISIBLE);
             binding.progressBar.setVisibility(creating ? View.VISIBLE : View.GONE);
-            if(!creating && viewModel.getPokemon().isInitialized()){
+            if(!creating && viewModel.getPokemon2().isInitialized()){
                 navController.navigate(R.id.action_editSecondPokemonFragment_to_mainMenu);
+                Toast.makeText(getContext(), "Created pokemon " + viewModel.getPokemon2().getValue().name, Toast.LENGTH_SHORT).show();
             }
         });
-
-        pokemon2 = viewModel.getPokemon().getValue();
     }
 }
