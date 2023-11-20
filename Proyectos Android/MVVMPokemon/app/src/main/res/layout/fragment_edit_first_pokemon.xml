@@ -96,7 +96,8 @@
                     android:id="@+id/nameIn1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="@color/yellow" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -134,7 +135,8 @@
                     android:id="@+id/hpIn1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="@color/yellow" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -173,7 +175,8 @@
                     android:id="@+id/atkIn1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="@color/yellow" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -212,7 +215,8 @@
                     android:id="@+id/defIn1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="@color/yellow" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -250,7 +254,8 @@
                     android:id="@+id/spAtkIn1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="@color/yellow" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <TextView
@@ -286,7 +291,8 @@
                     android:id="@+id/spDefIn1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number" />
+                    android:inputType="number"
+                    android:textColor="@color/yellow" />
             </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -318,6 +324,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="44dp"
         android:layout_marginBottom="44dp"
+        android:indeterminateTint="@color/yellow"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

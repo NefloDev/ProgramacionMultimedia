@@ -138,12 +138,12 @@ public class PokemonViewModel extends AndroidViewModel {
     }
 
     public boolean getError(){
-        return errorName.getValue()!=null ||
-                errorSpDef.getValue()!=null ||
-                errorAtk.getValue()!=null ||
-                errorSpAtk.getValue()!=null ||
-                errorDef.getValue()!=null ||
-                errorHp.getValue()!=null;
+        return errorName!=null ||
+                errorSpDef!=null ||
+                errorAtk!=null ||
+                errorSpAtk!=null ||
+                errorDef!=null ||
+                errorHp!=null;
     }
 
     public static synchronized PokemonViewModel getInstance(Application application){
