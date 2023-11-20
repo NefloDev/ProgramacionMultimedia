@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -14,13 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.mvvmpokemon.Entities.PokemonCreate;
-import com.example.mvvmpokemon.Entities.PokemonCreateViewModel;
+import com.example.mvvmpokemon.Entities.PokemonModel;
+import com.example.mvvmpokemon.Entities.PokemonViewModel;
 import com.example.mvvmpokemon.databinding.FragmentEditSecondPokemonBinding;
 
 public class EditSecondPokemonFragment extends Fragment {
     private FragmentEditSecondPokemonBinding binding;
-    private PokemonCreate.Pokemon pokemon2;
+    private PokemonModel.Pokemon pokemon2;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,7 +34,7 @@ public class EditSecondPokemonFragment extends Fragment {
         binding.backToFirstFromSecond.setOnClickListener(v -> navController.navigate(R.id.action_editSecondPokemonFragment_to_editPokemonFragment));
         binding.backToMainFromSecond.setOnClickListener(v -> navController.navigate(R.id.action_editSecondPokemonFragment_to_mainMenu));
 
-        final PokemonCreateViewModel viewModel = PokemonCreateViewModel.getInstance(requireActivity().getApplication());
+        final PokemonViewModel viewModel = PokemonViewModel.getInstance(requireActivity().getApplication());
         viewModel.initErrors();
 
         binding.finalCheckButton.setOnClickListener(v -> {
@@ -118,7 +117,7 @@ public class EditSecondPokemonFragment extends Fragment {
         viewModel.creating.observe(getViewLifecycleOwner(), (creating) -> {
             binding.finalCheckButton.setVisibility(creating ? View.GONE : View.VISIBLE);
             binding.progressBar.setVisibility(creating ? View.VISIBLE : View.GONE);
-            if(!creating && viewModel.getPokemon2().isInitialized()){
+            if(!creating && !viewModel.getError()){
                 navController.navigate(R.id.action_editSecondPokemonFragment_to_mainMenu);
                 Toast.makeText(getContext(), "Created pokemon " + viewModel.getPokemon2().getValue().name, Toast.LENGTH_SHORT).show();
             }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -14,20 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.mvvmpokemon.Entities.PokemonCreate;
-import com.example.mvvmpokemon.Entities.PokemonCreateViewModel;
+import com.example.mvvmpokemon.Entities.PokemonModel;
+import com.example.mvvmpokemon.Entities.PokemonViewModel;
 import com.example.mvvmpokemon.databinding.FragmentEditFirstPokemonBinding;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
-
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class EditFirstPokemonFragment extends Fragment {
     private FragmentEditFirstPokemonBinding binding;
-    private PokemonCreate.Pokemon pokemon1;
+    private PokemonModel.Pokemon pokemon1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -41,13 +33,13 @@ public class EditFirstPokemonFragment extends Fragment {
         NavController navController = Navigation.findNavController(view);
         binding.backToMainFromFirstPok.setOnClickListener(v -> navController.navigate(R.id.action_editPokemonFragment_to_mainMenu));
 
-        final PokemonCreateViewModel viewModel = PokemonCreateViewModel.getInstance(requireActivity().getApplication());
+        final PokemonViewModel viewModel = PokemonViewModel.getInstance(requireActivity().getApplication());
         viewModel.initErrors();
 
         binding.checkButton.setOnClickListener(v -> {
             String integerError = "You must enter a number";
             boolean error = false;
-            String name = null;
+            String name;
             int hp = -1, atk = -1, def = -1, spAtk = -1, spDef = -1;
             name = binding.nameIn1.getText().toString();
             if(name.isEmpty()){
@@ -124,7 +116,7 @@ public class EditFirstPokemonFragment extends Fragment {
         viewModel.creating.observe(getViewLifecycleOwner(), (creating) -> {
              binding.checkButton.setVisibility(creating ? View.GONE : View.VISIBLE);
              binding.progressBar2.setVisibility(creating ? View.VISIBLE : View.GONE);
-             if(!creating && viewModel.getPokemon1().isInitialized()){
+             if(!creating && !viewModel.getError()){
                  navController.navigate(R.id.action_editPokemonFragment_to_editSecondPokemonFragment);
                  Toast.makeText(getContext(), "Created pokemon " + viewModel.getPokemon1().getValue().name, Toast.LENGTH_SHORT).show();
              }

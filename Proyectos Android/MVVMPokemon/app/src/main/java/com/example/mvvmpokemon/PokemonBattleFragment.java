@@ -1,14 +1,11 @@
 package com.example.mvvmpokemon;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 
@@ -16,9 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.mvvmpokemon.Entities.PokemonBattleViewModel;
-import com.example.mvvmpokemon.Entities.PokemonCreate;
-import com.example.mvvmpokemon.Entities.PokemonCreateViewModel;
+import com.example.mvvmpokemon.Entities.PokemonViewModel;
 import com.example.mvvmpokemon.databinding.FragmentPokemonBattleBinding;
 
 public class PokemonBattleFragment extends Fragment {
@@ -38,7 +33,7 @@ public class PokemonBattleFragment extends Fragment {
         binding.winnerText.setVisibility(View.GONE);
         binding.attackText.setVisibility(View.GONE);
 
-        PokemonCreateViewModel viewModel = PokemonCreateViewModel.getInstance(requireActivity().getApplication());
+        PokemonViewModel viewModel = PokemonViewModel.getInstance(requireActivity().getApplication());
 
         if(viewModel.getPokemon1() != null && viewModel.getPokemon2() != null){
             viewModel.getPokemon1().observe(getViewLifecycleOwner(), (pokemon) -> {
@@ -58,15 +53,13 @@ public class PokemonBattleFragment extends Fragment {
                 binding.pokemon2ValSpDef.setText(String.valueOf(pokemon.spDef));
             });
 
-            PokemonBattleViewModel battleViewModel = new ViewModelProvider(this).get(PokemonBattleViewModel.class);
-
             binding.battleButton.setOnClickListener(v -> {
-                battleViewModel.startBattle(viewModel.getPokemon1().getValue(), viewModel.getPokemon2().getValue());
+                viewModel.startBattle(viewModel.getPokemon1().getValue(), viewModel.getPokemon2().getValue());
                 binding.battleButton.setVisibility(View.GONE);
                 binding.attackText.setVisibility(View.VISIBLE);
             });
 
-            battleViewModel.damage1.observe(getViewLifecycleOwner(), (damage) -> {
+            viewModel.damage1.observe(getViewLifecycleOwner(), (damage) -> {
                 int dmg = Integer.parseInt(damage);
                 boolean special = dmg%1000==0;
                 if(special){
@@ -83,7 +76,7 @@ public class PokemonBattleFragment extends Fragment {
                 binding.pokemon2ValHp.setText(String.valueOf(updateHp < 0 ? 0 : updateHp));
             });
 
-            battleViewModel.damage2.observe(getViewLifecycleOwner(), (damage) -> {
+            viewModel.damage2.observe(getViewLifecycleOwner(), (damage) -> {
                 int dmg = Integer.parseInt(damage);
                 boolean special = dmg%1000==0;
                 if(special){
@@ -100,7 +93,7 @@ public class PokemonBattleFragment extends Fragment {
                 binding.pokemon1ValHp.setText(String.valueOf(updateHp < 0 ? 0 : updateHp));
             });
 
-            battleViewModel.winner.observe(getViewLifecycleOwner(), (winner) -> {
+            viewModel.winner.observe(getViewLifecycleOwner(), (winner) -> {
                 binding.winnerText.setVisibility(View.VISIBLE);
                 binding.winnerText.setText(winner);
             });

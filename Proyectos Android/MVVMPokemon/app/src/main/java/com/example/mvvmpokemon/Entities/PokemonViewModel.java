@@ -5,17 +5,14 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModelProvider;
-
-import com.example.mvvmpokemon.MainActivity;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
-public class PokemonCreateViewModel extends AndroidViewModel {
-    public static PokemonCreateViewModel instance;
+public class PokemonViewModel extends AndroidViewModel {
+    public static PokemonViewModel instance;
     protected Executor executor;
-    protected PokemonCreate pok;
+    protected PokemonModel pok;
     public MutableLiveData<String> errorName;
     public MutableLiveData<String> errorHp;
     public MutableLiveData<String> errorAtk;
@@ -23,13 +20,16 @@ public class PokemonCreateViewModel extends AndroidViewModel {
     public MutableLiveData<String> errorSpAtk;
     public MutableLiveData<String> errorSpDef;
     public MutableLiveData<Boolean> creating;
-    public MutableLiveData<PokemonCreate.Pokemon> pokemon1;
-    public MutableLiveData<PokemonCreate.Pokemon> pokemon2 ;
-    public PokemonCreateViewModel(@NonNull Application application) {
+    public MutableLiveData<PokemonModel.Pokemon> pokemon1;
+    public MutableLiveData<PokemonModel.Pokemon> pokemon2;
+    public MutableLiveData<String> damage1 = new MutableLiveData<>();
+    public MutableLiveData<String> damage2 = new MutableLiveData<>();
+    public MutableLiveData<String> winner = new MutableLiveData<>();
+    public PokemonViewModel(@NonNull Application application) {
         super(application);
 
         executor = Executors.newSingleThreadExecutor();
-        pok = new PokemonCreate();
+        pok = new PokemonModel();
     }
 
     public void initErrors(){
@@ -42,13 +42,13 @@ public class PokemonCreateViewModel extends AndroidViewModel {
         creating = new MutableLiveData<>();
     }
 
-    public PokemonCreate.Pokemon create(String name, int hp, int atk, int def, int spAtk, int spDef){
-        final PokemonCreate.Pokemon pokemon = new PokemonCreate.Pokemon(name, hp, atk, def, spAtk, spDef);
+    public PokemonModel.Pokemon create(String name, int hp, int atk, int def, int spAtk, int spDef){
+        final PokemonModel.Pokemon pokemon = new PokemonModel.Pokemon(name, hp, atk, def, spAtk, spDef);
 
-        executor.execute(() -> pok.create(pokemon, new PokemonCreate.Callback() {
+        executor.execute(() -> pok.create(pokemon, new PokemonModel.Callback() {
 
             @Override
-            public void whenCreatingPokemon(PokemonCreate.Pokemon pokemon) {
+            public void whenCreatingPokemon(PokemonModel.Pokemon pokemon) {
                 errorName = null;
                 errorHp = null;
                 errorAtk = null;
@@ -101,10 +101,29 @@ public class PokemonCreateViewModel extends AndroidViewModel {
         return pokemon;
     }
 
-    public MutableLiveData<PokemonCreate.Pokemon> getPokemon1(){
+    public void startBattle(PokemonModel.Pokemon pokemon1, PokemonModel.Pokemon pokemon2){
+        pok.startBattle(pokemon1, pokemon2, new PokemonModel.BattleListener() {
+            @Override
+            public void onTurn1(int dmg) {
+                damage1.postValue(String.valueOf(dmg));
+            }
+
+            @Override
+            public void onTurn2(int dmg) {
+                damage2.postValue(String.valueOf(dmg));
+            }
+
+            @Override
+            public void onBattleEnd(String result) {
+                winner.postValue(result);
+            }
+        });
+    }
+
+    public MutableLiveData<PokemonModel.Pokemon> getPokemon1(){
         return pokemon1;
     }
-    public MutableLiveData<PokemonCreate.Pokemon> getPokemon2(){
+    public MutableLiveData<PokemonModel.Pokemon> getPokemon2(){
         return pokemon2;
     }
 
@@ -118,9 +137,18 @@ public class PokemonCreateViewModel extends AndroidViewModel {
         pokemon2.postValue(create(name, hp, atk, def, spAtk, spDef));
     }
 
-    public static synchronized PokemonCreateViewModel getInstance(Application application){
+    public boolean getError(){
+        return errorName.getValue()!=null ||
+                errorSpDef.getValue()!=null ||
+                errorAtk.getValue()!=null ||
+                errorSpAtk.getValue()!=null ||
+                errorDef.getValue()!=null ||
+                errorHp.getValue()!=null;
+    }
+
+    public static synchronized PokemonViewModel getInstance(Application application){
         if(instance == null){
-            instance = new PokemonCreateViewModel(application);
+            instance = new PokemonViewModel(application);
         }
         return instance;
     }
