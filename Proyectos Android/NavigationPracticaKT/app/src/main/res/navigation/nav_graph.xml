@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/tabFragment">
+
+    <fragment
+        android:id="@+id/bottom1Fragment"
+        android:name="com.example.navigationpracticakt.Tab"
+        android:label="fragment_bottom1"
+        tools:layout="@layout/fragment_tab" />
+    <fragment
+        android:id="@+id/bottom2Fragment"
+        android:name="com.example.navigationpracticakt.fragments.Bottom2"
+        android:label="fragment_bottom2"
+        tools:layout="@layout/fragment_bottom2" />
+    <fragment
+        android:id="@+id/bottom3Fragment"
+        android:name="com.example.navigationpracticakt.fragments.Bottom3"
+        android:label="fragment_bottom3"
+        tools:layout="@layout/fragment_bottom3" />
+    <fragment
+        android:id="@+id/drawer1Fragment"
+        android:name="com.example.navigationpracticakt.fragments.Drawer1"
+        android:label="fragment_drawer1"
+        tools:layout="@layout/fragment_drawer1" />
+    <fragment
+        android:id="@+id/drawer2Fragment"
+        android:name="com.example.navigationpracticakt.fragments.Drawer2"
+        android:label="fragment_drawer2"
+        tools:layout="@layout/fragment_drawer2" />
+    <fragment
+        android:id="@+id/drawer3Fragment"
+        android:name="com.example.navigationpracticakt.fragments.Drawer3"
+        android:label="fragment_drawer3"
+        tools:layout="@layout/fragment_drawer3" />
+    <fragment
+        android:id="@+id/options1Fragment"
+        android:name="com.example.navigationpracticakt.fragments.Options1"
+        android:label="fragment_options1"
+        tools:layout="@layout/fragment_options1" />
+    <fragment
+        android:id="@+id/options2Fragment"
+        android:name="com.example.navigationpracticakt.fragments.Options2"
+        android:label="fragment_options2"
+        tools:layout="@layout/fragment_options2" />
+    <fragment
+        android:id="@+id/options3Fragment"
+        android:name="com.example.navigationpracticakt.fragments.Options3"
+        android:label="fragment_options3"
+        tools:layout="@layout/fragment_options3" />
+    <fragment
+        android:id="@+id/tabFragment"
+        android:name="com.example.navigationpracticakt.Tab"
+        android:label="fragment_tab"
+        tools:layout="@layout/fragment_tab" />
+    <fragment
+        android:id="@+id/tabBFragment"
+        android:name="com.example.navigationpracticakt.fragments.TabB"
+        android:label="fragment_tab_b"
+        tools:layout="@layout/fragment_tab_b" />
+    <fragment
+        android:id="@+id/tabCFragment"
+        android:name="com.example.navigationpracticakt.fragments.TabC"
+        android:label="fragment_tab_c"
+        tools:layout="@layout/fragment_tab_c" />
+</navigation>
