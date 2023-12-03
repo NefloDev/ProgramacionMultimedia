@@ -1,15 +1,16 @@
 package com.example.retrofittuto.entities;
 
+
 import java.util.List;
 
 public class ApiResponse {
-    private List<Card> data;
+    private List<Pokemon> results;
 
-    public List<Card> getData() {
-        return data;
+    public List<Pokemon> getResults() {
+        return results;
     }
 
-    public void setData(List<Card> data) {
-        this.data = data;
+    public void setResults(List<Pokemon> results) {
+        this.results = results;
     }
 }

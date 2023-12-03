@@ -13,15 +13,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.retrofittuto.databinding.FragmentYugiohBinding;
-import com.example.retrofittuto.entities.YuGiOhViewModel;
+import com.example.retrofittuto.databinding.FragmentPokemonBinding;
+import com.example.retrofittuto.entities.PokemonViewModel;
 
-public class YuGiOhFragment extends Fragment {
-    private FragmentYugiohBinding binding;
+public class PokemonFragment extends Fragment {
+    private FragmentPokemonBinding binding;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = FragmentYugiohBinding.inflate(inflater, container, false);
+        binding = FragmentPokemonBinding.inflate(inflater, container, false);
         return binding.getRoot();
     }
 
@@ -29,7 +29,7 @@ public class YuGiOhFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        YuGiOhViewModel viewModel = new ViewModelProvider(this).get(YuGiOhViewModel.class);
+        PokemonViewModel viewModel = new ViewModelProvider(this).get(PokemonViewModel.class);
 
         binding.offsetInput.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -45,6 +45,6 @@ public class YuGiOhFragment extends Fragment {
         });
 
         viewModel.responseMutableLiveData.observe(getViewLifecycleOwner(),
-                apiResponse -> apiResponse.getData().forEach(p -> Log.d("CARD",p.getName() + " - "+ p.getId())));
+                apiResponse -> apiResponse.getResults().forEach(p -> Log.d("POKEMON", p.getName() + " - " + p.getUrl())));
     }
 }

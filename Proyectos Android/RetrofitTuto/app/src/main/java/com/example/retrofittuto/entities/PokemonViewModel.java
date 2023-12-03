@@ -7,26 +7,29 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.GsonBuilder;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class YuGiOhViewModel extends AndroidViewModel {
+public class PokemonViewModel extends AndroidViewModel {
     public MutableLiveData<ApiResponse> responseMutableLiveData = new MutableLiveData<>();
-    private static Retrofit retrofit = new Retrofit.Builder()
+    private static final Retrofit retrofit = new Retrofit.Builder()
             .baseUrl("https://pokeapi.co/api/v2/")
             .addConverterFactory(GsonConverterFactory.create())
             .build();
     public static ApiClient api = retrofit.create(ApiClient.class);
 
-    public YuGiOhViewModel(@NonNull Application application) {
+    public PokemonViewModel(@NonNull Application application) {
         super(application);
     }
 
-    public void search(String name){
-        Call<ApiResponse> response = api.getCards();
+    public void search(String offset){
+        Call<ApiResponse> response = api.getPokemons(20, Integer.parseInt(offset));
         response.enqueue(new Callback<>() {
             @Override
             public void onResponse(Call<ApiResponse> call, Response<ApiResponse> response) {

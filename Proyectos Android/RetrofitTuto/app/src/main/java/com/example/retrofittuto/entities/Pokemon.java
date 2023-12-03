@@ -1,9 +1,9 @@
 package com.example.retrofittuto.entities;
 
-public class Card {
+public class Pokemon {
 
     private String name;
-    private String id;
+    private String url;
 
     public String getName() {
         return name;
@@ -13,11 +13,12 @@ public class Card {
         this.name = name;
     }
 
-    public String getId() {
-        return id;
+    public String getUrl() {
+        return url;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setUrl(String url) {
+        this.url = url;
     }
+
 }

@@ -6,7 +6,7 @@
     app:startDestination="@id/yuGiOhFragment">
     <fragment
         android:id="@+id/yuGiOhFragment"
-        android:name="com.example.retrofittuto.YuGiOhFragment"
+        android:name="com.example.retrofittuto.PokemonFragment"
         android:label="fragment_yugioh"
-        tools:layout="@layout/fragment_yugioh" />
+        tools:layout="@layout/fragment_pokemon" />
 </navigation>
