@@ -30,5 +30,5 @@ Abre el proyecto en Android Studio y ejecuta la aplicación en un dispositivo vi
 
 ## Profesor
 
-- [@nafarrin](@https://github.com/nafarrin)
+- [@nafarrin](https://github.com/nafarrin)
 
