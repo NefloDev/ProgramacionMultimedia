@@ -63,7 +63,8 @@ public class ItemListRecyclerFragment extends Fragment {
             ItemListItem element = itemList.get(position);
             holder.binding.name.setText(element.getName());
             Glide.with(requireActivity())
-                            .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/" + element.getName() + ".png")
+                    .load("https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/" + element.getName() + ".png")
+                    .dontTransform()
                     .listener(new RequestListener<Drawable>() {
                         @Override
                         public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
@@ -77,7 +78,7 @@ public class ItemListRecyclerFragment extends Fragment {
                             return false;
                         }
                     })
-                                    .into(holder.binding.recyclerImage);
+                    .into(holder.binding.recyclerImage);
 
             holder.itemView.setOnClickListener(v -> {
                 itemsViewModel.select(element);
