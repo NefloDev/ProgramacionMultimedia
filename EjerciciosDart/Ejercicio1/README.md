@@ -62,5 +62,5 @@ dart main.dart infocomarca Priorat
 
 ## Author
 
-@NefloDev[]
-@nafarrin[]
+@NefloDev[https://github.com/NefloDev]
+@nafarrin[https://github.com/nafarrin]
