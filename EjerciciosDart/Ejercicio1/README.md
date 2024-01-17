@@ -28,10 +28,10 @@ Returns detailed information about the specified region.
 
 ```bash
 # List comarcas in a province
-dart main.dart comarcas Barcelona
+dart main.dart comarcas València
 
 # Get info about a specific comarca
-dart main.dart infocomarca Priorat
+dart main.dart infocomarca El Comtat
 ```
 
 ## Project Structure
