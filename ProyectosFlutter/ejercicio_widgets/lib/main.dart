@@ -50,8 +50,7 @@ class LoginScreen extends StatelessWidget{
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      "assets/images/login.png",
-                      scale: 20,
+                      "assets/images/login.png", scale: 1.1,
                     ),
                     const Padding(
                       padding: EdgeInsets.all(10),
