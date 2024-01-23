@@ -10,6 +10,12 @@ void main() {
   runApp(const MyApp());
 }
 
+void navigate(BuildContext context, Widget widget){
+  Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext cont){
+    return widget;
+  }));
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -33,49 +39,42 @@ class LoginScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-          child: Scaffold(
-          body: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.all(20),
-              height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage("assets/images/travel.jpg"),
-                    opacity: 0.3,
-                    repeat: ImageRepeat.repeat
-                ),
-              ),
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Image.asset(
-                      "assets/images/login.png", scale: 1.1,
+        child: Scaffold(
+            body: SingleChildScrollView(
+                child: Container(
+                    padding: const EdgeInsets.all(20),
+                    height: MediaQuery.of(context).size.height - MediaQuery.of(context).padding.top,
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/travel.jpg"),
+                            opacity: 0.3,
+                            repeat: ImageRepeat.repeat
+                        )
                     ),
-                    const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text(
-                        "Las comarcas de la comunidad",
-                        style: TextStyle(
-                            fontFamily: 'Love',
-                            fontSize: 40,
-                            color: greenByDefault
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
-                    const CustomInputText(hint: "User", isPassword: false,),
-                    const CustomInputText(hint: "Password", isPassword: true,),
-                    CustomButton(text: "LOG IN",
-                      onPressedFunction: (){
-                        Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext cont){
-                          return const RegionScreen();
-                        }));
-                      })
-                    ],),
-                ),
-              ),),
-          )
+                    child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset("assets/images/login.png", scale: 1.1),
+                            const Padding(padding: EdgeInsets.all(10),
+                              child: Text("Las comarcas de la comunidad",
+                                  style: TextStyle(
+                                      fontFamily: 'Love',
+                                      fontSize: 40,
+                                      color: greenByDefault
+                                  ),
+                                  textAlign: TextAlign.center
+                              ),
+                            ),
+                            const CustomInputText(hint: "User", isPassword: false,),
+                            const CustomInputText(hint: "Password", isPassword: true,),
+                            CustomButton(text: "LOG IN",
+                                onPressedFunction: () {navigate(context, const RegionScreen());})
+                          ],)
+                    )
+                )
+            )
+        )
     );
   }}
 
@@ -87,7 +86,7 @@ class CustomButton extends StatelessWidget{
   
   @override
   Widget build(BuildContext context) {
-    return Padding(padding: const EdgeInsets.fromLTRB(10, 40, 10, 0),
+    return Padding(padding: const EdgeInsets.fromLTRB(10, 40, 0, 10),
       child: ElevatedButton(onPressed: onPressedFunction,
           style: ButtonStyle(
               backgroundColor: const MaterialStatePropertyAll(greenByDefault),
@@ -97,7 +96,7 @@ class CustomButton extends StatelessWidget{
               )),
               minimumSize: const MaterialStatePropertyAll(Size(200, 50))
           ),
-          child: Text(text)),
+          child: Text(text))
     );
   }
   
@@ -113,7 +112,7 @@ class CustomInputText extends StatelessWidget{
     return Padding(padding: const EdgeInsets.all(20),
       child: TextField(
         decoration: InputDecoration(
-        border: const OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           hintText: hint,
           filled: true,
           fillColor: Colors.white,
@@ -137,6 +136,18 @@ class RegionScreenState extends State<RegionScreen>{
   static const baseApiGet = "/api/comarques/";
 
   List<dynamic> regions = [];
+  bool finished = false;
+
+  List<Widget> _getRegionWidgets(){
+    List<Widget> regionWidgets = [];
+    for (int i = 0; i < regions.length; i++) {
+      regionWidgets.add(CustomRoundedImage(
+        imageUrl: regions[i]['img'],
+        name: regions[i]['provincia'],
+      ));
+    }
+    return regionWidgets;
+  }
 
   Future getRegions() async{
     final url = Uri.https(baseUrl, baseApiGet);
@@ -144,46 +155,38 @@ class RegionScreenState extends State<RegionScreen>{
 
     if(response.statusCode == 200){
       String body = convert.utf8.decode(response.bodyBytes);
-      final bodyJSON = convert.jsonDecode(body) as List<dynamic>;
-      for(int i = 0; i < bodyJSON.length; i++){
-        setState(() {
-          regions.add(bodyJSON[i]);
-        });
-      }
+      final bodyJSON = convert.jsonDecode(body) as List;
+      setState(() {
+        regions.addAll(bodyJSON);
+      });
     }
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     getRegions();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(child: Scaffold(
-      appBar: AppBar(
-        backgroundColor: greenByDefault,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage("assets/images/travel.jpg"),
-                  opacity: 0.3,
-                  repeat: ImageRepeat.repeat
-              ),
-            ),
-            child: Center(
-                child: Column(
-                  children: [
-                    CustomRoundedImage(imageUrl: regions.isEmpty ? "" : regions[0]['img'],
-                        name: regions.isEmpty ? "" : regions[0]['provincia']),
-                    CustomRoundedImage(imageUrl: regions.isEmpty ? "" : regions[1]['img'],
-                        name: regions.isEmpty ? "" : regions[1]['provincia']),
-                    CustomRoundedImage(imageUrl: regions.isEmpty ? "" : regions[2]['img'],
-                        name: regions.isEmpty ? "" : regions[2]['provincia'])
-                  ],
-                )
-            )
+        appBar: AppBar(
+          backgroundColor: greenByDefault,
         ),
-      ),
+        body: SingleChildScrollView(
+            child: Container(
+                padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage("assets/images/travel.jpg"),
+                      opacity: 0.3,
+                      repeat: ImageRepeat.repeat
+                  ),
+                ),
+                child: Center(child: Column(children: _getRegionWidgets()))
+            )
+        )
     ));
   }
 
@@ -199,11 +202,7 @@ class CustomRoundedImage extends StatelessWidget{
   Widget build(BuildContext context) {
     return Padding(padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
       child: GestureDetector(
-          onTap: (){
-            Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext cont){
-              return RegionsListScreen(regionName: name);
-            }));
-          },
+          onTap: (){navigate(context, RegionsListScreen(regionName: name));},
           child: CircleAvatar(
             radius: 100,
             backgroundImage: NetworkImage(imageUrl),
@@ -240,65 +239,44 @@ class RegionListScreenState extends State<RegionsListScreen>{
 
   List<dynamic> regions = [];
   List<dynamic> data = [];
-  bool finished = false;
 
-  List<Widget> _getListing(){
-    List<Widget> list = [];
-    if(finished){
-      for(int i = 0; i < data.length; i++){
-        list.add(Card(
-          clipBehavior: Clip.antiAliasWithSaveLayer,
-          child: Stack(
-            children: [
-              GestureDetector(
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (cont){
-                    return RegionInfoScreen(data: data[i]);
-                  }));
-                },
-                child: Image.network(data[i]['img'],
-                  height: 200,
-                  width: 400,
-                  fit: BoxFit.cover,
-                ),
+  List<Widget> _getListWidgets(){
+    List<Widget> widgetList = [];
+    for(int i = 0; i < data.length; i++){
+      widgetList.add(Card(
+        clipBehavior: Clip.antiAliasWithSaveLayer,
+        child: Stack(
+          children: [
+            GestureDetector(onTap: (){navigate(context, RegionInfoScreen(data: data[i]));},
+              child: Image.network(data[i]['img'], height: 200, width: 400,
+                fit: BoxFit.cover,
               ),
-              Positioned(
-                  bottom: 10,
-                  left: 10,
-                  child: BorderedText(
-                      strokeWidth: 3.0,
-                      strokeColor: Colors.black,
-                      child: Text(regions[i],
+            ),
+            Positioned(bottom: 10, left: 10,
+                child: BorderedText(strokeWidth: 3.0, strokeColor: Colors.black,
+                    child: Text(regions[i],
                         style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontFamily: 'Love',
+                          fontSize: 20, color: Colors.white, fontFamily: 'Love',
                         )
-                      )
-                  )
-              )
-            ],
-          ),
-        ));
-      }
+                    )
+                )
+            )
+          ],
+        ),
+      ));
     }
-    return list;
+    return widgetList;
   }
 
   Future getRegions() async{
-    if(regions.isEmpty){
-      final url = Uri.https(baseUrl, baseApiGet + widget.regionName);
-      var response = await http.get(url);
+    final url = Uri.https(baseUrl, baseApiGet + widget.regionName);
+    var response = await http.get(url);
 
-      if(response.statusCode == 200){
-        String body = convert.utf8.decode(response.bodyBytes);
-        final bodyJSON = convert.jsonDecode(body) as List;
-        setState(() {
-          regions.addAll(bodyJSON);
-        });
-        getData();
-        finished = true;
-      }
+    if(response.statusCode == 200){
+      String body = convert.utf8.decode(response.bodyBytes);
+      final bodyJSON = convert.jsonDecode(body) as List;
+      setState(() { regions.addAll(bodyJSON); });
+      getData();
     }
   }
 
@@ -310,47 +288,42 @@ class RegionListScreenState extends State<RegionsListScreen>{
         if(response.statusCode == 200){
           String body = convert.utf8.decode(response.bodyBytes);
           final bodyJSON = convert.jsonDecode(body);
-          setState(() {
-            data.add(bodyJSON);
-          });
+          setState(() { data.add(bodyJSON); });
         }
       }
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     getRegions();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
-              backgroundColor: greenByDefault,
-              title: Text("Comarcas de ${widget.regionName}",
-                style: const TextStyle(
-                    fontSize: 24,
-                    fontFamily: 'Love'
-                ),),
+                backgroundColor: greenByDefault,
+                title: Text("Comarcas de ${widget.regionName}",
+                    style: const TextStyle(fontSize: 24, fontFamily: 'Love')
+                )
             ),
             body: SingleChildScrollView(
                 child: Container(
                     padding: const EdgeInsets.all(20),
                     decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage("assets/images/travel.jpg"),
-                          opacity: 0.3,
-                          repeat: ImageRepeat.repeat
-                      ),
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/travel.jpg"),
+                            opacity: 0.3, repeat: ImageRepeat.repeat
+                        )
                     ),
-                    child: Center(
-                      child: Column(
-                        children: _getListing(),
-                      ),
-                    )
+                    child: Center(child: Column(children: _getListWidgets()))
                 )
             )
         )
     );
   }
-
 }
 
 class RegionInfoScreen extends StatelessWidget{
@@ -362,55 +335,43 @@ class RegionInfoScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: greenByDefault,
-            title: Text(data['comarca'],
-              style: const TextStyle(
-                  fontSize: 24,
-                  fontFamily: 'Love'
-              ),),
-          ),
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Image.network(data['img']),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text(data['comarca'],
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold
-                  ),
-                ),
+            appBar: AppBar(
+                backgroundColor: greenByDefault,
+                title: Text(data['comarca'],
+                    style: const TextStyle(fontSize: 24, fontFamily: 'Love')
+                )
+            ),
+            body: SingleChildScrollView(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Image.network(data['img']),
+                    Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(data['comarca'],
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold
+                            )
+                        )
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text("Capital: ${data['capital']}",
+                            style: const TextStyle(fontSize: 18)
+                        )
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.fromLTRB(10, 5, 5, 10),
+                        child: Text(data['desc'], style: const TextStyle(fontSize: 16))
+                    ),
+                    Positioned(left: 10, top: 10,
+                        child: CustomButton(
+                            text: "Weather",
+                            onPressedFunction: (){navigate(context, WeatherInfoScreen(data: data));})
+                    )
+                  ]
               ),
-              Padding(
-                padding: const EdgeInsets.all(10),
-                child: Text("Capital: ${data['capital']}",
-                  style: const TextStyle(
-                      fontSize: 18,
-                  ),
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 5, 5, 10),
-                child: Text(data['desc'],
-                  style: const TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-              Positioned(
-                  left: 10,
-                  top: 10,
-                  child: CustomButton(text: "Weather",
-                    onPressedFunction: (){
-                      Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext cont){
-                        return WeatherInfoScreen(data: data);
-                      }));
-                    })
-              )
-            ],
-          ),
+            )
         )
     );
   }
@@ -426,72 +387,64 @@ class WeatherInfoScreen extends StatelessWidget{
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: greenByDefault,
-            title: Text(data['comarca'],
-              style: const TextStyle(
-                fontSize: 24,
-                fontFamily: 'Love'
-              ),
-            )
-          ),
-          body: Column(
-              children: [
-                Padding(
-                    padding: const EdgeInsets.all(20),
-                    child: Image.asset("assets/images/weatherIcon.png")
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+            appBar: AppBar(
+                backgroundColor: greenByDefault,
+                title: Text(data['comarca'],
+                    style: const TextStyle(fontSize: 24, fontFamily: 'Love')
+                )
+            ),
+            body: SingleChildScrollView(
+              child: Column(
                   children: [
-                    Image(
-                      image: AssetImage("assets/images/barometerIcon.png"),
-                      width: 65,
+                    Padding(padding: const EdgeInsets.all(20),
+                        child: Image.asset("assets/images/weatherIcon.png")
                     ),
-                    Text(
-                        "5.4º",
-                        style: TextStyle(
-                            fontSize: 24
+                    const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image(
+                            image: AssetImage("assets/images/barometerIcon.png"),
+                            width: 65,
+                          ),
+                          Text("5.4º", style: TextStyle(fontSize: 24))
+                        ]
+                    ),
+                    const Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(padding: EdgeInsets.all(10),
+                              child: Image(
+                                image: AssetImage("assets/images/windIcon.png"),
+                                width: 40,
+                              )),
+                          Padding(padding: EdgeInsets.all(10),
+                              child: Text("9.4km/h", style: TextStyle(fontSize: 18))
+                          ),
+                          Padding(padding: EdgeInsets.all(10),
+                              child: Text("Poniente", style: TextStyle(fontSize: 18))
+                          ),
+                          Icon(Icons.arrow_back)
+                        ]
+                    ),
+                    Padding(padding: const EdgeInsets.all(15),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text("Población:    ${data['poblacio']}",
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              Text("Latitud:    ${data['latitud']}",
+                                style: const TextStyle(fontSize: 16),
+                              ),
+                              Text("Longitud:    ${data['longitud']}",
+                                style: const TextStyle(fontSize: 16),
+                              )
+                            ]
                         )
                     )
-                  ],
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(padding: EdgeInsets.all(10),
-                        child: Image(
-                          image: AssetImage("assets/images/windIcon.png"),
-                          width: 40,
-                        )),
-                    Padding(padding: EdgeInsets.all(10),
-                      child: Text("9.4km/h",
-                        style: TextStyle(fontSize: 18),
-                      ),),
-                    Padding(padding: EdgeInsets.all(10),
-                      child: Text("Poniente",
-                        style: TextStyle(fontSize: 18),
-                      ),),
-                    Icon(Icons.arrow_back)
-                  ],
-                ),
-                Padding(padding: const EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Población:    ${data['poblacio']}",
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    Text("Latitud:    ${data['latitud']}",
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                    Text("Longitud:    ${data['longitud']}",
-                      style: const TextStyle(fontSize: 16),
-                    )
-                  ],
-                ),)
-              ],
-          ),
+                  ]
+              )
+            )
         )
     );
   }
