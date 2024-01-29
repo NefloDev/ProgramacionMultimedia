@@ -17,6 +17,17 @@ void navigate(BuildContext context, Widget widget) {
   }));
 }
 
+int signIn(String username, String pass){
+  if(username.isEmpty || pass.isEmpty){
+    return 1;
+  }
+  if(users.containsKey(username)){
+    return 2;
+  }
+  users.putIfAbsent(username, () => pass);
+  return 0;
+}
+
 int login(String username, String pass, BuildContext context, Widget widget) {
   if (!users.containsKey(username)) {
     return 1;
@@ -37,7 +48,6 @@ class MyApp extends StatelessWidget {
       title: 'Ejercicio Widgets',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const LoginScreen(),
@@ -62,16 +72,123 @@ class LoginScreenState extends State<LoginScreen> {
     setState(() {
       switch (login(username.value.text, password.value.text, context,
           const RegionScreen())) {
-        case 0:
-          warning = "";
-          break;
         case 1:
           warning = "Username not registered";
           break;
         case 2:
           warning = "Password incorrect";
+          password.text = "";
+        default:
+          warning = "";
+          username.text = "";
+          password.text = "";
       }
     });
+  }
+
+  void showSignUpAlert(){
+    showDialog(
+        context: context,
+        builder: (context) {
+          String registerWarning = "";
+          String registerSuccess = "";
+          return StatefulBuilder(builder: (context, setState){
+            return AlertDialog(
+                shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(
+                        Radius.circular(20)
+                    )
+                ),
+                title: const Text("Register",
+                    style: TextStyle(fontSize: 40),
+                    textAlign: TextAlign.center
+                ),
+                backgroundColor: Colors.white,
+                contentPadding: const EdgeInsets.only(top: 20),
+                content: Wrap(
+                  clipBehavior: Clip.hardEdge,
+                    alignment: WrapAlignment.center,
+                    children: [
+                      Text(registerSuccess,
+                        style: const TextStyle(
+                            color: Colors.green,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      Text(registerWarning,
+                        style: const TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          const Padding(padding: EdgeInsets.only(left: 20),
+                              child: Icon(Icons.person)),
+                          Flexible(child: CustomInputText(hint: "Username", isPassword: false, controller: username))
+                        ],
+                      ),
+                      Row(
+                          children: [
+                            const Padding(padding: EdgeInsets.only(left: 20),
+                                child: Icon(Icons.password)),
+                            Flexible(child: CustomInputText(hint: "Password", isPassword: true, controller: password))
+                          ]
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Padding(
+                              padding: const EdgeInsets.all(20),
+                              child: ElevatedButton(
+                                  style: const ButtonStyle(
+                                    backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+                                    shadowColor: MaterialStatePropertyAll(Colors.transparent),
+                                    surfaceTintColor: MaterialStatePropertyAll(Colors.transparent),
+                                  ),
+                                  onPressed: (){
+                                    setState(() {
+                                      switch (signIn(username.text, password.text)){
+                                        case 1:
+                                          registerWarning = "Missing Data";
+                                          registerSuccess = "";
+                                          break;
+                                        case 2:
+                                          registerWarning = "Username already exists";
+                                          registerSuccess = "";
+                                          break;
+                                        default:
+                                          registerWarning = "";
+                                          registerSuccess = "User succesfully registered";
+                                      }
+                                      username.text = "";
+                                      password.text = "";
+                                    });
+                                  },
+                                  child: const Text("Register", style: TextStyle(color: Colors.blue))
+                              )
+                          ),
+                          Padding(padding: const EdgeInsets.all(20),
+                            child: ElevatedButton(
+                                style: const ButtonStyle(
+                                backgroundColor: MaterialStatePropertyAll(Colors.transparent),
+                                shadowColor: MaterialStatePropertyAll(Colors.transparent),
+                                surfaceTintColor: MaterialStatePropertyAll(Colors.transparent),
+                                ),
+                                onPressed: (){
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("Cancel",
+                                style: TextStyle(color: Colors.red))
+                            )
+                          )
+                        ],
+                      )
+                    ]
+                )
+            );
+          });
+        });
   }
 
   @override
@@ -79,7 +196,7 @@ class LoginScreenState extends State<LoginScreen> {
     return SafeArea(
         child: Scaffold(
             body: Container(
-                    padding: const EdgeInsets.all(20),
+                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 20),
                     height: MediaQuery.of(context).size.height -
                         MediaQuery.of(context).padding.top,
                     decoration: const BoxDecoration(
@@ -124,7 +241,7 @@ class LoginScreenState extends State<LoginScreen> {
                                   CustomButton(
                                       text: "Register",
                                       onPressedFunction: () {
-                                        navigate(context, const RegionScreen());
+                                        showSignUpAlert();
                                       })
                                 ],
                               )
@@ -152,7 +269,7 @@ class CustomButton extends StatelessWidget {
         child: ElevatedButton(
             onPressed: onPressedFunction,
             style: ButtonStyle(
-                backgroundColor: const MaterialStatePropertyAll(greenByDefault),
+                backgroundColor: const MaterialStatePropertyAll(Colors.lightBlue),
                 foregroundColor: const MaterialStatePropertyAll(Colors.white),
                 shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0)))),
@@ -161,14 +278,14 @@ class CustomButton extends StatelessWidget {
 }
 
 class CustomInputText extends StatelessWidget {
-  CustomInputText(
+  const CustomInputText(
       {super.key,
       required this.hint,
       required this.isPassword,
       required this.controller});
   final String hint;
   final bool isPassword;
-  TextEditingController controller;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -242,7 +359,7 @@ class RegionScreenState extends State<RegionScreen> {
             body: Container(
                 height: MediaQuery.of(context).size.height -
                     MediaQuery.of(context).padding.top,
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     decoration: const BoxDecoration(
                       image: DecorationImage(
                           image: AssetImage("assets/images/travel.jpg"),
@@ -428,7 +545,7 @@ class RegionInfoScreen extends StatelessWidget {
                     style: const TextStyle(fontSize: 24, fontFamily: 'Love'))),
             body: SingleChildScrollView(
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Image.network(data['img']),
                       Padding(
@@ -441,17 +558,15 @@ class RegionInfoScreen extends StatelessWidget {
                           child: Text("Capital: ${data['capital']}",
                               style: const TextStyle(fontSize: 18))),
                       Padding(
-                          padding: const EdgeInsets.fromLTRB(10, 5, 5, 10),
+                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
                           child: Text(data['desc'],
+                              textAlign: TextAlign.justify,
                               style: const TextStyle(fontSize: 16))),
-                      Positioned(
-                          left: 10,
-                          top: 10,
-                          child: CustomButton(
-                              text: "Weather",
-                              onPressedFunction: () {
-                                navigate(context, WeatherInfoScreen(data: data));
-                              }))
+                      CustomButton(
+                          text: "Weather",
+                          onPressedFunction: () {
+                            navigate(context, WeatherInfoScreen(data: data));
+                          })
                     ]),
               )
             ));
