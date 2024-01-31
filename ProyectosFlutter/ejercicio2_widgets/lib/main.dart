@@ -519,57 +519,80 @@ class RegionListScreenState extends State<RegionsListScreen> {
                             image: AssetImage("assets/images/travel.jpg"),
                             opacity: 0.3,
                             repeat: ImageRepeat.repeat)),
-                    child: Center(
-                        child: SingleChildScrollView(
-                            child: Column(children: _getListWidgets())
-                        )
+                    child: SingleChildScrollView(
+                        child: Column(children: _getListWidgets())
                     )
                 )
         )
     );
   }
 }
-
-class RegionInfoScreen extends StatelessWidget {
+class RegionInfoScreen extends StatefulWidget{
   const RegionInfoScreen({super.key, required this.data});
 
   final dynamic data;
 
   @override
+  State<StatefulWidget> createState() => RegionInfoScreenState();
+
+}
+
+class RegionInfoScreenState extends State<RegionInfoScreen> {
+  RegionInfoScreenState();
+
+  int _index = 0;
+
+  @override
   Widget build(BuildContext context) {
+    Widget child = Container();
+    switch(_index){
+      case 0:
+        child = SingleChildScrollView(
+            child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                    Image.network(widget.data['img']),
+                    Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text(widget.data['comarca'],
+                            style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold))),
+                    Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Text("Capital: ${widget.data['capital']}",
+                            style: const TextStyle(fontSize: 18))),
+                    Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
+                        child: Text(widget.data['desc'],
+                            textAlign: TextAlign.justify,
+                            style: const TextStyle(fontSize: 16)))
+                ]),
+            );
+        break;
+      case 1:
+        child = WeatherInfoScreen(data: widget.data);
+        break;
+    }
     return SafeArea(
         child: Scaffold(
             appBar: AppBar(
                 backgroundColor: greenByDefault,
-                title: Text(data['comarca'],
+                title: Text(widget.data['comarca'],
                     style: const TextStyle(fontSize: 24, fontFamily: 'Love'))),
-            body: SingleChildScrollView(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Image.network(data['img']),
-                      Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text(data['comarca'],
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold))),
-                      Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text("Capital: ${data['capital']}",
-                              style: const TextStyle(fontSize: 18))),
-                      Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 20),
-                          child: Text(data['desc'],
-                              textAlign: TextAlign.justify,
-                              style: const TextStyle(fontSize: 16))),
-                      CustomButton(
-                          text: "Weather",
-                          onPressedFunction: () {
-                            navigate(context, WeatherInfoScreen(data: data));
-                          })
-                    ]),
-              )
-            ));
+            bottomNavigationBar: BottomNavigationBar(
+              onTap: (newIndex) => setState(() => _index = newIndex),
+              currentIndex: _index,
+              items: const [
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.info),
+                    label: "Info"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.sunny),
+                    label: "Weather")
+              ],
+            ),
+            body: child)
+    );
   }
 }
 
@@ -582,10 +605,6 @@ class WeatherInfoScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-            appBar: AppBar(
-                backgroundColor: greenByDefault,
-                title: Text(data['comarca'],
-                    style: const TextStyle(fontSize: 24, fontFamily: 'Love'))),
             body: SingleChildScrollView(
                 child: Column(children: [
               Padding(
